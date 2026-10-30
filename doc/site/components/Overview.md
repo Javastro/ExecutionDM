@@ -26,9 +26,9 @@ In general the core services can be thought of as being able to work in a "singl
 
 This is a centralised service that is responsible for managing the queue of jobs that are waiting to be executed. Executor services, when idle, could examine the job queue to determine which jobs fit their local capabilities and then pull those jobs from the queue for execution. The Job Queue Service would be responsible for managing the lifecycle of jobs in the queue, including the adding new jobs, removing completed jobs, and monitoring the progress of jobs in the queue.
 
-### Broker Service
+### Orchestrator Service
 
-This service takes the concept of a job queue service one step further. The Broker Service would be a framework for managing multiple job queue services, and would be responsible for routing jobs to the appropriate job queue service based on the requirements of the job and the capabilities of the available job queue services. The Broker Service would also add the possibility of "booking" jobs on specific execution platforms, and would be responsible for managing the lifecycle of jobs across multiple job queue services. 
+This service takes the concept of a job queue service one step further. The Orchestrator Service would be a framework for managing multiple job queue services, and would be responsible for routing jobs to the appropriate job queue service based on the requirements of the job and the capabilities of the available job queue services. The Orchestrator Service would also add the possibility of "booking" jobs on specific execution platforms, and would be responsible for managing the lifecycle of jobs across multiple job queue services. 
 
 ### Execution Platform Registry Service
 

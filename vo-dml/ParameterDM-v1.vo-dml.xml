@@ -9,7 +9,7 @@
       <title></title>
       <author>Paul Harrison</author>
       <version>0.1</version>
-      <lastModified>2026-04-22T21:24:11Z</lastModified>
+      <lastModified>2026-04-22T21:51:59Z</lastModified>
       <import>
         <name>ivoa</name>
         <version>1.0</version>
@@ -24,11 +24,6 @@
                     <vodml-id>ValueEncoding.PLAIN</vodml-id>
                     <name>PLAIN</name>
                     <description>Unencoded plain value representation</description>	    
-                  </literal>	
-                  <literal>
-                    <vodml-id>ValueEncoding.JSON</vodml-id>
-                    <name>JSON</name>
-                    <description>JSON-encoded representation</description>	    
                   </literal>	
                   <literal>
                     <vodml-id>ValueEncoding.URI</vodml-id>
@@ -292,42 +287,6 @@
                  </multiplicity>
                </attribute>
                <attribute>
-                 <vodml-id>ParameterDefinition.required</vodml-id>
-                 <name>required</name>
-                 <description>Whether this parameter must be provided by clients</description>	    
-                 <datatype>
-                    <vodml-ref>ivoa:boolean</vodml-ref>
-                 </datatype>
-                 <multiplicity>
-                   <minOccurs>0</minOccurs>
-                   <maxOccurs>1</maxOccurs>
-                 </multiplicity>
-               </attribute>
-               <attribute>
-                 <vodml-id>ParameterDefinition.minItems</vodml-id>
-                 <name>minItems</name>
-                 <description>Minimum number of items allowed in the array</description>	    
-                 <datatype>
-                    <vodml-ref>ivoa:integer</vodml-ref>
-                 </datatype>
-                 <multiplicity>
-                   <minOccurs>0</minOccurs>
-                   <maxOccurs>1</maxOccurs>
-                 </multiplicity>
-               </attribute>
-               <attribute>
-                 <vodml-id>ParameterDefinition.maxItems</vodml-id>
-                 <name>maxItems</name>
-                 <description>Maximum number of items allowed in the array</description>	    
-                 <datatype>
-                    <vodml-ref>ivoa:integer</vodml-ref>
-                 </datatype>
-                 <multiplicity>
-                   <minOccurs>0</minOccurs>
-                   <maxOccurs>1</maxOccurs>
-                 </multiplicity>
-               </attribute>
-               <attribute>
                  <vodml-id>ParameterDefinition.defaultValue</vodml-id>
                  <name>defaultValue</name>
                  <description>A typed default value used when no explicit value is supplied</description>	    
@@ -421,6 +380,42 @@
                    <maxOccurs>1</maxOccurs>
                  </multiplicity>
                </reference>
+               <attribute>
+                 <vodml-id>ParameterOrGroup.required</vodml-id>
+                 <name>required</name>
+                 <description>Whether this parameter/group must be provided by clients</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:boolean</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+               <attribute>
+                 <vodml-id>ParameterOrGroup.minItems</vodml-id>
+                 <name>minItems</name>
+                 <description>Minimum number of items allowed in the array</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:integer</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+               <attribute>
+                 <vodml-id>ParameterOrGroup.maxItems</vodml-id>
+                 <name>maxItems</name>
+                 <description>Maximum number of items allowed in the array</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:integer</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
             </objectType>
             <objectType>
                <vodml-id>ToolInterface</vodml-id>
