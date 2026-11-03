@@ -9,7 +9,7 @@
       <title></title>
       <author>Paul Harrison</author>
       <version>0.1</version>
-      <lastModified>2026-04-22T21:00:49Z</lastModified>
+      <lastModified>2026-11-03T16:15:39Z</lastModified>
       <import>
         <name>ivoa</name>
         <version>1.0</version>
@@ -136,6 +136,18 @@
                  </datatype>
                  <multiplicity>
                    <minOccurs>1</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+               <attribute>
+                 <vodml-id>OCIRegistry.proxyOf</vodml-id>
+                 <name>proxyOf</name>
+                 <description>If this registry is a transparent proxy or mirror, the upstream registry it fronts</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:anyURI</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
                    <maxOccurs>1</maxOccurs>
                  </multiplicity>
                </attribute>
@@ -382,28 +394,88 @@
                    <maxOccurs>1</maxOccurs>
                  </multiplicity>
                </attribute>
-            </objectType>
-            <objectType>
-               <vodml-id>Compliance</vodml-id>
-               <name>Compliance</name>
-               <description>attestation information</description>	    
-            </objectType>
-            <objectType>
-               <vodml-id>SecurityMetadata</vodml-id>
-               <name>SecurityMetadata</name>
-               <description>Security metadata for a tool image</description>	    
                <attribute>
-                 <vodml-id>SecurityMetadata.digest</vodml-id>
-                 <name>digest</name>
-                 <description>a digest style signature</description>	    
+                 <vodml-id>Vulnerability.severity</vodml-id>
+                 <name>severity</name>
+                 <description>the severity of the vulnerability, e.g. LOW, MEDIUM, HIGH, CRITICAL</description>	    
                  <datatype>
                     <vodml-ref>ivoa:string</vodml-ref>
                  </datatype>
                  <multiplicity>
-                   <minOccurs>1</minOccurs>
+                   <minOccurs>0</minOccurs>
                    <maxOccurs>1</maxOccurs>
                  </multiplicity>
                </attribute>
+               <attribute>
+                 <vodml-id>Vulnerability.scannedAt</vodml-id>
+                 <name>scannedAt</name>
+                 <description>the time at which the image was scanned and this vulnerability reported</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:datetime</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+            </objectType>
+            <objectType>
+               <vodml-id>Compliance</vodml-id>
+               <name>Compliance</name>
+               <description>attestation information about an image, bound to the image digest</description>	    
+               <attribute>
+                 <vodml-id>Compliance.signature</vodml-id>
+                 <name>signature</name>
+                 <description>a signature over the image digest</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+               <attribute>
+                 <vodml-id>Compliance.signer</vodml-id>
+                 <name>signer</name>
+                 <description>the identity of the signer</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+               <attribute>
+                 <vodml-id>Compliance.sbomUrl</vodml-id>
+                 <name>sbomUrl</name>
+                 <description>the location of a software bill of materials for the image</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:anyURI</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+               <attribute>
+                 <vodml-id>Compliance.provenanceUrl</vodml-id>
+                 <name>provenanceUrl</name>
+                 <description>the location of build provenance for the image</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:anyURI</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+            </objectType>
+            <objectType>
+               <vodml-id>SecurityMetadata</vodml-id>
+               <name>SecurityMetadata</name>
+               <description>Security metadata for a tool image - the image identity is ToolImage.digest</description>	    
                <composition>
                  <vodml-id>SecurityMetadata.vulnerabilities</vodml-id>
                  <name>vulnerabilities</name>
@@ -430,21 +502,110 @@
                </composition>
             </objectType>
             <objectType>
-               <vodml-id>ToolImage</vodml-id>
-               <name>ToolImage</name>
-               <description>Definition of a tool image</description>	    
-               <reference>
-                 <vodml-id>ToolImage.registry</vodml-id>
-                 <name>registry</name>
-                 <description>OCI registry details</description>	    
+               <vodml-id>ImagePlatform</vodml-id>
+               <name>ImagePlatform</name>
+               <description>A target platform of an image, used where the digest refers to a multi-platform index</description>	    
+               <attribute>
+                 <vodml-id>ImagePlatform.os</vodml-id>
+                 <name>os</name>
+                 <description>operating system, e.g. linux</description>	    
                  <datatype>
-                   <vodml-ref>tool:OCIRegistry</vodml-ref>
+                    <vodml-ref>ivoa:string</vodml-ref>
                  </datatype>
                  <multiplicity>
                    <minOccurs>1</minOccurs>
                    <maxOccurs>1</maxOccurs>
                  </multiplicity>
+               </attribute>
+               <attribute>
+                 <vodml-id>ImagePlatform.architecture</vodml-id>
+                 <name>architecture</name>
+                 <description>CPU architecture, e.g. amd64, arm64</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>1</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+               <attribute>
+                 <vodml-id>ImagePlatform.manifestDigest</vodml-id>
+                 <name>manifestDigest</name>
+                 <description>digest of the platform-specific manifest</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+            </objectType>
+            <objectType>
+               <vodml-id>ToolImage</vodml-id>
+               <name>ToolImage</name>
+               <description>Definition of a tool image - the digest is the authoritative identity; the tag and discovery version are informational</description>	    
+               <reference>
+                 <vodml-id>ToolImage.registries</vodml-id>
+                 <name>registries</name>
+                 <description>OCI registries (including mirrors/proxies) from which the image can be pulled</description>	    
+                 <datatype>
+                   <vodml-ref>tool:OCIRegistry</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>1</minOccurs>
+                   <maxOccurs>-1</maxOccurs>
+                 </multiplicity>
                </reference>
+               <attribute>
+                 <vodml-id>ToolImage.repository</vodml-id>
+                 <name>repository</name>
+                 <description>image name within the registry project, e.g. 'casa-pipeline'</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>1</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+               <attribute>
+                 <vodml-id>ToolImage.tag</vodml-id>
+                 <name>tag</name>
+                 <description>mutable human-friendly tag - not an identity</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+               <attribute>
+                 <vodml-id>ToolImage.digest</vodml-id>
+                 <name>digest</name>
+                 <description>immutable content digest of the form algorithm:hex, e.g. 'sha256:...'</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>1</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
+               <composition>
+                 <vodml-id>ToolImage.platforms</vodml-id>
+                 <name>platforms</name>
+                 <description>platforms provided by the image where the digest is a multi-platform index</description>	    
+                 <datatype>
+                    <vodml-ref>tool:ImagePlatform</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>-1</maxOccurs>
+                 </multiplicity>
+               </composition>
                <reference>
                  <vodml-id>ToolImage.parentImage</vodml-id>
                  <name>parentImage</name>
@@ -457,6 +618,18 @@
                    <maxOccurs>1</maxOccurs>
                  </multiplicity>
                </reference>
+               <attribute>
+                 <vodml-id>ToolImage.parentDigest</vodml-id>
+                 <name>parentDigest</name>
+                 <description>digest of the parent image at build time, so that lineage is reproducible</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
                <composition>
                  <vodml-id>ToolImage.build</vodml-id>
                  <name>build</name>
@@ -553,6 +726,18 @@
                <constraint xsi:type="vo-dml:NaturalKey">
                	<position>1</position>
                </constraint>
+               </attribute>
+               <attribute>
+                 <vodml-id>Tool.version</vodml-id>
+                 <name>version</name>
+                 <description>Version of the tool definition (the logical tool); only ToolImage.digest identifies the executable artefact</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>1</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
                </attribute>
                <reference>
                  <vodml-id>Tool.image</vodml-id>

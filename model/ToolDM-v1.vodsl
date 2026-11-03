@@ -19,6 +19,7 @@ model tool (0.1) "Tool Data Model for defining executable tools"
      otype OCIRegistry "Details about the OCIcontainer registry" { //TODO need to regularize with the possibility of transparent proxy registrieds
        host: ivoa:string "Container registry hostname";
        project: ivoa:string "Container registry project/namespace";
+       proxyOf: ivoa:anyURI @? "If this registry is a transparent proxy or mirror, the upstream registry it fronts";
      }
 
 //TODO - align with SRCNET metadata?
@@ -49,23 +50,37 @@ model tool (0.1) "Tool Data Model for defining executable tools"
 
   otype Vulnerability "a known security vulnerability" {
   	cve : ivoa:string "the identifier for the vulnerability";
-  	//TBC
+  	severity: ivoa:string @? "the severity of the vulnerability, e.g. LOW, MEDIUM, HIGH, CRITICAL";
+  	scannedAt: ivoa:datetime @? "the time at which the image was scanned and this vulnerability reported";
   }
   
-  otype Compliance "attestation information" {
-  	
+  otype Compliance "attestation information about an image, bound to the image digest" {
+  	signature: ivoa:string @? "a signature over the image digest";
+  	signer: ivoa:string @? "the identity of the signer";
+  	sbomUrl: ivoa:anyURI @? "the location of a software bill of materials for the image";
+  	provenanceUrl: ivoa:anyURI @? "the location of build provenance for the image";
   }
 
 
-  otype SecurityMetadata "Security metadata for a tool image" {
-  	digest: ivoa:string "a digest style signature";
+  otype SecurityMetadata "Security metadata for a tool image - the image identity is ToolImage.digest" {
     vulnerabilities: Vulnerability @* as composition "Known vulnerabilities in the image";
     compliance: Compliance @* as composition "Compliance information for the image";
   }
 
-  otype ToolImage "Definition of a tool image" {
-    registry references OCIRegistry "OCI registry details";
+  otype ImagePlatform "A target platform of an image, used where the digest refers to a multi-platform index" {
+    os: ivoa:string "operating system, e.g. linux";
+    architecture: ivoa:string "CPU architecture, e.g. amd64, arm64";
+    manifestDigest: ivoa:string @? "digest of the platform-specific manifest";
+  }
+
+  otype ToolImage "Definition of a tool image - the digest is the authoritative identity; the tag and discovery version are informational" {
+    registries @+ references OCIRegistry "OCI registries (including mirrors/proxies) from which the image can be pulled";
+    repository: ivoa:string "image name within the registry project, e.g. 'casa-pipeline'";
+    tag: ivoa:string @? "mutable human-friendly tag - not an identity";
+    digest: ivoa:string "immutable content digest of the form algorithm:hex, e.g. 'sha256:...'";
+    platforms: ImagePlatform @* as composition "platforms provided by the image where the digest is a multi-platform index";
     parentImage @? references ToolImage "Parent image reference";
+    parentDigest: ivoa:string @? "digest of the parent image at build time, so that lineage is reproducible";
     build: BuildProcess as composition "Build detail";
     discovery: Discovery as composition "Discovery metadata for the tool image";
     security: SecurityMetadata as composition "Security metadata for the tool image";
@@ -82,6 +97,7 @@ model tool (0.1) "Tool Data Model for defining executable tools"
 
    otype Tool "Definition of a Library Tool" {
       id: ivoa:string iskey "Unique tool identifier";
+      version: ivoa:string "Version of the tool definition (the logical tool); only ToolImage.digest identifies the executable artefact";
       image references ToolImage  "Tool container image reference"; //IMPL - perhaps composition
       command: ivoa:string @+ "Tokenized initial command; supports {{inputs.key}} min_length=1";
       env: EnvVar @* as composition  "Environment map entries";

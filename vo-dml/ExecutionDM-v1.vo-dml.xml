@@ -9,7 +9,7 @@
       <title></title>
       <author>Paul Harrison</author>
       <version>0.1</version>
-      <lastModified>2026-04-22T08:37:55Z</lastModified>
+      <lastModified>2026-11-03T16:08:53Z</lastModified>
       <import>
         <name>ivoa</name>
         <version>1.0</version>
@@ -551,6 +551,18 @@
                    <maxOccurs>1</maxOccurs>
                  </multiplicity>
                </reference>
+               <attribute>
+                 <vodml-id>JobExecution.resolvedImageDigest</vodml-id>
+                 <name>resolvedImageDigest</name>
+                 <description>the digest of the image actually executed, recorded when the tool image is resolved so that the run is reproducible even if a tag later moves</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
                <composition>
                  <vodml-id>JobExecution.inputs</vodml-id>
                  <name>inputs</name>
