@@ -88,7 +88,7 @@ otype ParameterGroup  "a group of parameter Definitions" { // this is here to al
 otype ParameterOrGroup "a 'choice' type " { //IMPL not a great name...
 	//if VO-VODML had a choice (or on-of) relation this would be used here - i.e. only one of these should be set
 	param @? references ParameterDefinition "";
-	group @? references ParameterGroup "";
+	subGroup @? references ParameterGroup "";
 	required: ivoa:boolean @? "Whether this parameter/group must be provided by clients";
 	minItems: ivoa:integer @? "Minimum number of items allowed in the array";
 	maxItems: ivoa:integer @? "Maximum number of items allowed in the array";

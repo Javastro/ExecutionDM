@@ -9,7 +9,7 @@
       <title></title>
       <author>Paul Harrison</author>
       <version>0.1</version>
-      <lastModified>2026-04-22T21:51:59Z</lastModified>
+      <lastModified>2026-11-03T16:34:01Z</lastModified>
       <import>
         <name>ivoa</name>
         <version>1.0</version>
@@ -369,8 +369,8 @@
                  </multiplicity>
                </reference>
                <reference>
-                 <vodml-id>ParameterOrGroup.group</vodml-id>
-                 <name>group</name>
+                 <vodml-id>ParameterOrGroup.subGroup</vodml-id>
+                 <name>subGroup</name>
                  <description></description>	    
                  <datatype>
                    <vodml-ref>pdl:ParameterGroup</vodml-ref>

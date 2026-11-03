@@ -9,7 +9,7 @@
       <title></title>
       <author>Paul Harrison</author>
       <version>0.1</version>
-      <lastModified>2026-11-03T16:15:39Z</lastModified>
+      <lastModified>2026-11-03T16:34:01Z</lastModified>
       <import>
         <name>ivoa</name>
         <version>1.0</version>
@@ -277,8 +277,8 @@
                  </multiplicity>
                </attribute>
                <attribute>
-                 <vodml-id>Discovery.keywords</vodml-id>
-                 <name>keywords</name>
+                 <vodml-id>Discovery.keyword</vodml-id>
+                 <name>keyword</name>
                  <description>Discovery/search keywords</description>	    
                  <datatype>
                     <vodml-ref>ivoa:string</vodml-ref>
@@ -313,8 +313,8 @@
                  </multiplicity>
                </attribute>
                <attribute>
-                 <vodml-id>Discovery.tools</vodml-id>
-                 <name>tools</name>
+                 <vodml-id>Discovery.software</vodml-id>
+                 <name>software</name>
                  <description>Scientific software packages included</description>	    
                  <datatype>
                     <vodml-ref>ivoa:string</vodml-ref>
@@ -366,8 +366,8 @@
                  </multiplicity>
                </attribute>
                <attribute>
-                 <vodml-id>EnvVar.value</vodml-id>
-                 <name>value</name>
+                 <vodml-id>EnvVar.setting</vodml-id>
+                 <name>setting</name>
                  <description>Environment variable value</description>	    
                  <datatype>
                     <vodml-ref>ivoa:string</vodml-ref>
@@ -606,18 +606,6 @@
                    <maxOccurs>-1</maxOccurs>
                  </multiplicity>
                </composition>
-               <reference>
-                 <vodml-id>ToolImage.parentImage</vodml-id>
-                 <name>parentImage</name>
-                 <description>Parent image reference</description>	    
-                 <datatype>
-                   <vodml-ref>tool:ToolImage</vodml-ref>
-                 </datatype>
-                 <multiplicity>
-                   <minOccurs>0</minOccurs>
-                   <maxOccurs>1</maxOccurs>
-                 </multiplicity>
-               </reference>
                <attribute>
                  <vodml-id>ToolImage.parentDigest</vodml-id>
                  <name>parentDigest</name>
@@ -739,18 +727,18 @@
                    <maxOccurs>1</maxOccurs>
                  </multiplicity>
                </attribute>
-               <reference>
+               <composition>
                  <vodml-id>Tool.image</vodml-id>
                  <name>image</name>
                  <description>Tool container image reference</description>	    
                  <datatype>
-                   <vodml-ref>tool:ToolImage</vodml-ref>
+                    <vodml-ref>tool:ToolImage</vodml-ref>
                  </datatype>
                  <multiplicity>
                    <minOccurs>1</minOccurs>
                    <maxOccurs>1</maxOccurs>
                  </multiplicity>
-               </reference>
+               </composition>
                <attribute>
                  <vodml-id>Tool.command</vodml-id>
                  <name>command</name>
@@ -776,8 +764,8 @@
                  </multiplicity>
                </composition>
                <composition>
-                 <vodml-id>Tool.interface</vodml-id>
-                 <name>interface</name>
+                 <vodml-id>Tool.toolInterface</vodml-id>
+                 <name>toolInterface</name>
                  <description>Tool interface definition - note that the inputs will be mounted in the /inputs directory and the outputs in the /outputs directory</description>	    
                  <datatype>
                     <vodml-ref>pdl:ToolInterface</vodml-ref>

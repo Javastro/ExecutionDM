@@ -34,17 +34,17 @@ model tool (0.1) "Tool Data Model for defining executable tools"
     created: ivoa:datetime @? "Metadata processing timestamp (UTC)";
     authors  @+ references Author  "Responsible people/organization"; //TODO VO-DML does not like aggregation...
     licenses: ivoa:string "SPDX license expression";
-    keywords: ivoa:string @* "Discovery/search keywords";
+    keyword: ivoa:string @* "Discovery/search keywords";
     domain: ivoa:string @+ "Scientific domains; default astronomy; min_length=1"; //FIXME - this needs a vocabulary.
     kind: ivoa:string @+ "";// not sure if this is needed
-    tools: ivoa:string @* "Scientific software packages included";
+    software: ivoa:string @* "Scientific software packages included";
     isBase: ivoa:boolean "Whether this is a certified base image that should be used as a parent image for derived images";
     deprecated: ivoa:boolean @? "Deprecation status; default false";
   }
 
  otype EnvVar "Environment variable map entry" {
     name: ivoa:string "Environment variable name";
-    value: ivoa:string "Environment variable value";
+    setting: ivoa:string "Environment variable value";
   }
 
 
@@ -79,7 +79,6 @@ model tool (0.1) "Tool Data Model for defining executable tools"
     tag: ivoa:string @? "mutable human-friendly tag - not an identity";
     digest: ivoa:string "immutable content digest of the form algorithm:hex, e.g. 'sha256:...'";
     platforms: ImagePlatform @* as composition "platforms provided by the image where the digest is a multi-platform index";
-    parentImage @? references ToolImage "Parent image reference";
     parentDigest: ivoa:string @? "digest of the parent image at build time, so that lineage is reproducible";
     build: BuildProcess as composition "Build detail";
     discovery: Discovery as composition "Discovery metadata for the tool image";
@@ -98,10 +97,10 @@ model tool (0.1) "Tool Data Model for defining executable tools"
    otype Tool "Definition of a Library Tool" {
       id: ivoa:string iskey "Unique tool identifier";
       version: ivoa:string "Version of the tool definition (the logical tool); only ToolImage.digest identifies the executable artefact";
-      image references ToolImage  "Tool container image reference"; //IMPL - perhaps composition
+      image: ToolImage as composition "Tool container image reference";
       command: ivoa:string @+ "Tokenized initial command; supports {{inputs.key}} min_length=1";
       env: EnvVar @* as composition  "Environment map entries";
-      interface: pdl:ToolInterface as composition "Tool interface definition - note that the inputs will be mounted in the /inputs directory and the outputs in the /outputs directory";
+      toolInterface: pdl:ToolInterface as composition "Tool interface definition - note that the inputs will be mounted in the /inputs directory and the outputs in the /outputs directory";
       performanceProfile: PerformanceProfile as composition "Performance profile for the tool";
     }
 
