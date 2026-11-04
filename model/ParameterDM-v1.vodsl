@@ -66,14 +66,19 @@ dtype IVOASemantics -> ParameterSemantics "" {
 	
 }
 
+dtype NullSemantic -> ParameterSemantics "indicate no semantic meaning"{
+	// IMPL - this is forced because hibernate requires some value for the semantics - probably a reason to simplify the ParameterSemantics model.
+	
+}
+
 
 otype ParameterDefinition  "the definition of a parameter" {
   name: ivoa:string "Parameter name";
 	description: ivoa:string @? "Parameter description";
 	kind: ParameterType  "the type of the parameter";
-	defaultValue: ParameterLiteral @? "A typed default value used when no explicit value is supplied";
+	defaultValue: ParameterLiteral  "A typed default value used when no explicit value is supplied";
 	encoding: ValueEncoding @? "Preferred exchange encoding for this parameter value";
-	semantics: ParameterSemantics @? "Optional semantic annotation for this parameter";
+	semantics: ParameterSemantics "semantic annotation for this parameter";
 }
 
 

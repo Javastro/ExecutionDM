@@ -9,7 +9,7 @@
       <title></title>
       <author>Paul Harrison</author>
       <version>0.1</version>
-      <lastModified>2026-11-03T16:34:01Z</lastModified>
+      <lastModified>2026-11-04T11:37:44Z</lastModified>
       <import>
         <name>ivoa</name>
         <version>1.0</version>
@@ -246,6 +246,14 @@
               </multiplicity>
             </attribute>
             </dataType>
+            <dataType>
+              <vodml-id>NullSemantic</vodml-id>
+              <name>NullSemantic</name>
+              <description>indicate no semantic meaning</description>	    
+               <extends>
+                  <vodml-ref>pdl:ParameterSemantics</vodml-ref>
+               </extends>
+            </dataType>
             <objectType>
                <vodml-id>ParameterDefinition</vodml-id>
                <name>ParameterDefinition</name>
@@ -294,7 +302,7 @@
                     <vodml-ref>pdl:ParameterLiteral</vodml-ref>
                  </datatype>
                  <multiplicity>
-                   <minOccurs>0</minOccurs>
+                   <minOccurs>1</minOccurs>
                    <maxOccurs>1</maxOccurs>
                  </multiplicity>
                </attribute>
@@ -313,12 +321,12 @@
                <attribute>
                  <vodml-id>ParameterDefinition.semantics</vodml-id>
                  <name>semantics</name>
-                 <description>Optional semantic annotation for this parameter</description>	    
+                 <description>semantic annotation for this parameter</description>	    
                  <datatype>
                     <vodml-ref>pdl:ParameterSemantics</vodml-ref>
                  </datatype>
                  <multiplicity>
-                   <minOccurs>0</minOccurs>
+                   <minOccurs>1</minOccurs>
                    <maxOccurs>1</maxOccurs>
                  </multiplicity>
                </attribute>

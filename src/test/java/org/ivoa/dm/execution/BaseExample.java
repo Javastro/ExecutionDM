@@ -1,17 +1,7 @@
 package org.ivoa.dm.execution;
 
 
-import org.ivoa.dm.pdl.AtomicParameterType;
-import org.ivoa.dm.pdl.BooleanLiteral;
-import org.ivoa.dm.pdl.FileParameterType;
-import org.ivoa.dm.pdl.IVOASemantics;
-import org.ivoa.dm.pdl.IntegerLiteral;
-import org.ivoa.dm.pdl.ParameterDefinition;
-import org.ivoa.dm.pdl.ParameterGroup;
-import org.ivoa.dm.pdl.ParameterOrGroup;
-import org.ivoa.dm.pdl.StringLiteral;
-import org.ivoa.dm.pdl.ToolInterface;
-import org.ivoa.dm.pdl.ValueEncoding;
+import org.ivoa.dm.pdl.*;
 import org.ivoa.dm.tool.Author;
 import org.ivoa.dm.tool.BuildProcess;
 import org.ivoa.dm.tool.Compliance;
@@ -208,12 +198,14 @@ public class BaseExample {
          // RDB mapping requires a non-null discriminator for the polymorphic default even though it is optional
          p.defaultValue = new StringLiteral("");
          p.encoding = ValueEncoding.URI;
+         p.semantics = new NullSemantic();
       });
       ParameterDefinition size = ParameterDefinition.createParameterDefinition(p -> {
          p.name = "imageSize";
          p.description = "Image size in pixels";
          p.kind = new AtomicParameterType("int");
          p.defaultValue = new IntegerLiteral(1024);
+         p.semantics = new NullSemantic();
       });
       ParameterDefinition weighting = ParameterDefinition.createParameterDefinition(p -> {
          p.name = "weighting";
@@ -221,11 +213,13 @@ public class BaseExample {
          p.kind = new AtomicParameterType("string");
          p.defaultValue = new StringLiteral("briggs");
          p.encoding = ValueEncoding.PLAIN;
+         p.semantics = new NullSemantic();
       });
       ParameterDefinition verbose = ParameterDefinition.createParameterDefinition(p -> {
          p.name = "verbose";
          p.kind = new AtomicParameterType("string");
          p.defaultValue = new BooleanLiteral(false);
+         p.semantics = new NullSemantic();
       });
       ParameterDefinition imageOut = ParameterDefinition.createParameterDefinition(p -> {
          p.name = "image";
