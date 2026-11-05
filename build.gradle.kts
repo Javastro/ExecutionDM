@@ -1,8 +1,9 @@
 plugins {
     // this plugin provides all the vo-dml functionality
-    id("net.ivoa.vo-dml.vodmltools") version "0.7.3"
+    id("net.ivoa.vo-dml.vodmltools") version "0.7.4"
  //   id("org.kordamp.gradle.jandex") version "1.1.0"
     `maven-publish`
+    id("com.diffplug.spotless") version "8.10.4"
 }
 group = "net.ivoa.dm"
 version = "0.1-SNAPSHOT"
@@ -90,6 +91,24 @@ java {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
+
+spotless {
+    java {
+        target(vodml.outputJavaDir.asFileTree.matching(
+            PatternSet().include("**/*.java")
+        ))
+        googleJavaFormat("1.17.0")
+    }
+}
+
+tasks.named("spotlessJava") {
+    dependsOn("vodmlJavaGenerate")
+}
+
+tasks.named(JavaPlugin.COMPILE_JAVA_TASK_NAME) {
+    dependsOn("spotlessApply")
+}
+// end of spotless config
 
 publishing {
     publications {
