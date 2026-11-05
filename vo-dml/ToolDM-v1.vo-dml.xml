@@ -9,7 +9,7 @@
       <title></title>
       <author>Paul Harrison</author>
       <version>0.1</version>
-      <lastModified>2026-11-03T16:34:01Z</lastModified>
+      <lastModified>2026-11-05T08:58:01Z</lastModified>
       <import>
         <name>ivoa</name>
         <version>1.0</version>
@@ -701,8 +701,8 @@
                <name>Tool</name>
                <description>Definition of a Library Tool</description>	    
                <attribute>
-                 <vodml-id>Tool.id</vodml-id>
-                 <name>id</name>
+                 <vodml-id>Tool.tool_id</vodml-id>
+                 <name>tool_id</name>
                  <description>Unique tool identifier</description>	    
                  <datatype>
                     <vodml-ref>ivoa:string</vodml-ref>

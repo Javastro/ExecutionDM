@@ -252,7 +252,7 @@ public class BaseExample {
       });
 
       tool = Tool.createTool(t -> {
-         t.id = "imager-3.2.0";
+         t.tool_id = "imager-3.2.0";
          t.version = "3.2.0";
          t.image = image;
          t.command = List.of("wsclean", "-size", "{{inputs.imageSize}}", "{{inputs.imageSize}}",

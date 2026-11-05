@@ -95,7 +95,7 @@ model tool (0.1) "Tool Data Model for defining executable tools"
    }
 
    otype Tool "Definition of a Library Tool" {
-      id: ivoa:string iskey "Unique tool identifier";
+      tool_id: ivoa:string iskey "Unique tool identifier"; //note that natural keys should avoid being called id as that clashes with the surrogate keys
       version: ivoa:string "Version of the tool definition (the logical tool); only ToolImage.digest identifies the executable artefact";
       image: ToolImage as composition "Tool container image reference";
       command: ivoa:string @+ "Tokenized initial command; supports {{inputs.key}} min_length=1";
