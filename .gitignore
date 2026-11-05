@@ -9,3 +9,6 @@
 /site/
 
 /src-gen/
+/doc/presentations/ivoa_ns_2026/reveal.js*
+/doc/presentations/ivoa_ns_2026/ExecutionDM-Presentation.html
+/doc/presentations/ivoa_ns_2026/ExecutionDM-Presentation.pdf

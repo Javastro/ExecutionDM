@@ -9,7 +9,7 @@
       <title></title>
       <author>Paul Harrison</author>
       <version>0.1</version>
-      <lastModified>2026-04-22T08:37:55Z</lastModified>
+      <lastModified>2026-11-03T16:34:01Z</lastModified>
       <import>
         <name>ivoa</name>
         <version>1.0</version>
@@ -470,8 +470,8 @@
                  </multiplicity>
                </reference>
                <attribute>
-                 <vodml-id>ParameterValue.value</vodml-id>
-                 <name>value</name>
+                 <vodml-id>ParameterValue.content</vodml-id>
+                 <name>content</name>
                  <description>the value of the parameter - this is intentionally very flexible to allow for different types of parameters - e.g. atomic values, files, etc</description>	    
                  <datatype>
                     <vodml-ref>ivoa:string</vodml-ref>
@@ -551,6 +551,18 @@
                    <maxOccurs>1</maxOccurs>
                  </multiplicity>
                </reference>
+               <attribute>
+                 <vodml-id>JobExecution.resolvedImageDigest</vodml-id>
+                 <name>resolvedImageDigest</name>
+                 <description>the digest of the image actually executed, recorded when the tool image is resolved so that the run is reproducible even if a tag later moves</description>	    
+                 <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                 </datatype>
+                 <multiplicity>
+                   <minOccurs>0</minOccurs>
+                   <maxOccurs>1</maxOccurs>
+                 </multiplicity>
+               </attribute>
                <composition>
                  <vodml-id>JobExecution.inputs</vodml-id>
                  <name>inputs</name>

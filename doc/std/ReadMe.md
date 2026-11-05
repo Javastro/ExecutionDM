@@ -1,0 +1,1 @@
+this is where a formal IVOA standard document would go - but for now all documentation is being developed in the "site" directory.

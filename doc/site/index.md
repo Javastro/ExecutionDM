@@ -17,5 +17,7 @@ by [OpenCADC Library Tools](http://www.opencadc.org/library-tools/) and the cont
 the execution to be decoupled from the underlying infrastructure.  The project considers the functionality inside the 
 container as a "black box" - the tools developed in this project are concerned only with the inputs and outputs of the "black box".
 
+The data model is designed to be used as a basis for the development of APIs and services that allow for the execution of computational tasks in a distributed environment. The various services such as job queues, schedulers and resource brokers can be developed based on the data model, and the data model can be used to define the semantics of the execution environment. 
+Different implementations of these services can be developed based on the same data model, allowing for interoperability and flexibility in the execution environment, as well as allowing for the development of a rich ecosystem of tools and services that can be used to execute computational tasks in the VO context.
 
 More details about the initial design motivations can be found in the [requirements document](prd.md).

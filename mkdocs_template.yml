@@ -31,8 +31,10 @@ markdown_extensions:
 nav:
   - Introduction: index.md
   - Requirements: prd.md
-  - Architecture: architecture.md
   - Runtime: runtimeEnvironment.md
+  - Components: components/Overview.md
+  - Presentations: presentations/Overview.md
+  - Architecture: architecture.md
   - Schema: schema.md
   - Design Log:
       - Decisions Register: design-log/decisions.md

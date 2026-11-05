@@ -66,14 +66,19 @@ dtype IVOASemantics -> ParameterSemantics "" {
 	
 }
 
+dtype NullSemantic -> ParameterSemantics "indicate no semantic meaning"{
+	// IMPL - this is forced because hibernate requires some value for the semantics - probably a reason to simplify the ParameterSemantics model.
+	
+}
+
 
 otype ParameterDefinition  "the definition of a parameter" {
   name: ivoa:string "Parameter name";
 	description: ivoa:string @? "Parameter description";
 	kind: ParameterType  "the type of the parameter";
-	defaultValue: ParameterLiteral @? "A typed default value used when no explicit value is supplied";
+	defaultValue: ParameterLiteral  "A typed default value used when no explicit value is supplied";
 	encoding: ValueEncoding @? "Preferred exchange encoding for this parameter value";
-	semantics: ParameterSemantics @? "Optional semantic annotation for this parameter";
+	semantics: ParameterSemantics "semantic annotation for this parameter";
 }
 
 
@@ -88,7 +93,7 @@ otype ParameterGroup  "a group of parameter Definitions" { // this is here to al
 otype ParameterOrGroup "a 'choice' type " { //IMPL not a great name...
 	//if VO-VODML had a choice (or on-of) relation this would be used here - i.e. only one of these should be set
 	param @? references ParameterDefinition "";
-	group @? references ParameterGroup "";
+	subGroup @? references ParameterGroup "";
 	required: ivoa:boolean @? "Whether this parameter/group must be provided by clients";
 	minItems: ivoa:integer @? "Minimum number of items allowed in the array";
 	maxItems: ivoa:integer @? "Maximum number of items allowed in the array";

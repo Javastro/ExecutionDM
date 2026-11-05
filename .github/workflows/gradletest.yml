@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      checks: write
 
     steps:
     - uses: actions/checkout@v4
@@ -27,6 +28,11 @@ jobs:
       uses: gradle/actions/setup-gradle@v4
 
     - name: Test with Gradle Wrapper
-      run: ./gradlew test
+      run: ./gradlew test -PskipSigning=True
 
-  
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        files: |
+          build/test-results/**/*.xml

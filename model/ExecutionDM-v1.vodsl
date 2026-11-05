@@ -62,7 +62,7 @@ model execution (0.1) "A Data Model for describing the execution of a job on a c
   //FIXME - this needs to be linked with DataResource if the parameter is a file - i.e. rather than just having a string value for the parameter we want to have a reference to a DataResource that represents the file - this would allow us to capture more metadata about the file (e.g. size, mime type, etc) and also to link with the data management aspects of the model - but for now this is a simple string value.
   otype ParameterValue "the value of a parameter for a job execution" {
   	definition references pdl:ParameterDefinition "the definition of the parameter";
-  	value: ivoa:string "the value of the parameter - this is intentionally very flexible to allow for different types of parameters - e.g. atomic values, files, etc"; //TODO - perhaps we want to have a more structured way of representing parameter values - e.g. if the parameter is a file then we want to have a reference to the file rather than just a string value - but for now this is a simple
+  	content: ivoa:string "the value of the parameter - this is intentionally very flexible to allow for different types of parameters - e.g. atomic values, files, etc"; //TODO - perhaps we want to have a more structured way of representing parameter values - e.g. if the parameter is a file then we want to have a reference to the file rather than just a string value - but for now this is a simple
     isIndirect: ivoa:boolean "whether the value is an indirect reference to the actual value - e.g. a file path or a URL"; //
   }
 
@@ -73,6 +73,7 @@ model execution (0.1) "A Data Model for describing the execution of a job on a c
                       description of the job";
   	ownerID: ivoa:string "the identifier of the user who owns the job execution";
   	tool references tool:Tool "the tool being executed";
+  	resolvedImageDigest: ivoa:string @? "the digest of the image actually executed, recorded when the tool image is resolved so that the run is reproducible even if a tag later moves";
   	inputs: ParameterValue @* as composition "the input parameter values for the job execution";
   	outputs: ParameterValue @* as composition "the output parameter values for the job execution";
   	status: ExecutionPhase "the current status of the job execution";

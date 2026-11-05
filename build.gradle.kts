@@ -1,8 +1,9 @@
 plugins {
     // this plugin provides all the vo-dml functionality
-    id("net.ivoa.vo-dml.vodmltools") version "0.6.2"
+    id("net.ivoa.vo-dml.vodmltools") version "0.7.4"
  //   id("org.kordamp.gradle.jandex") version "1.1.0"
     `maven-publish`
+    id("com.diffplug.spotless") version "8.10.4"
 }
 group = "net.ivoa.dm"
 version = "0.1-SNAPSHOT"
@@ -37,11 +38,12 @@ dependencies {
     api("net.ivoa.vo-dml:ivoa-base:1.0-SNAPSHOT") //use API if model exposes any of these base types in API
 
     // the dependencies below are related to testing
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
 
     implementation("org.slf4j:slf4j-api:1.7.32")
-    testRuntimeOnly("ch.qos.logback:logback-classic:1.5.13")
+    testRuntimeOnly("ch.qos.logback:logback-classic:1.6.3")
 
     testImplementation("com.h2database:h2:2.2.220")
     testImplementation("org.javastro:jaxbjpa-utils:0.2.3")
@@ -89,6 +91,24 @@ java {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
+
+spotless {
+    java {
+        target(vodml.outputJavaDir.asFileTree.matching(
+            PatternSet().include("**/*.java")
+        ))
+        googleJavaFormat("1.17.0")
+    }
+}
+
+tasks.named("spotlessJava") {
+    dependsOn("vodmlJavaGenerate")
+}
+
+tasks.named(JavaPlugin.COMPILE_JAVA_TASK_NAME) {
+    dependsOn("spotlessApply")
+}
+// end of spotless config
 
 publishing {
     publications {
